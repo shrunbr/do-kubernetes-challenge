@@ -1,0 +1,18 @@
+---
+- name: Digital Ocean Kubernetes Challenge 
+  hosts: localhost
+  gather_facts: false
+  vars_files:
+    ../vars/sensitive.yml
+  vars:
+    get_helm: yes
+    harbor: yes
+  
+  tasks:
+    - name: Install Helm
+      include_tasks: ../tasks/get_helm.yml
+      when: get_helm
+    
+    - name: Install harbor
+      include_tasks: ../tasks/harbor.yml
+      when: harbor

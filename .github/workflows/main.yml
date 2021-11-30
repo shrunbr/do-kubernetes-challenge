@@ -20,12 +20,22 @@ jobs:
       - name: Install ansible collections
         run: | 
           ansible-galaxy collection install community.digitalocean
-      - name: Run Playbook
+          ansible-galaxy collection install community.kubernetes
+      - name: Run Cluster Playbook
         uses: dawidd6/action-ansible-playbook@v2
         with:
-          playbook: ansible/playbooks/engage.yml
+          playbook: ansible/playbooks/create-cluster.yml
           directory: ./
           vault_password: ${{secrets.ANSIBLE_VAULT_PASSWORD}}
           options: |
             --inventory ansible/inventory/inventory.yml
+            --verbose
+      - name: Run K8S Management Playbook
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          playbook: ansible/playbooks/k8s_management.yml
+          directory: ./
+          vault_password: ${{secrets.ANSIBLE_VAULT_PASSWORD}}
+          options: |
+            --inventory ansible/inventory/k8s.yml
             --verbose

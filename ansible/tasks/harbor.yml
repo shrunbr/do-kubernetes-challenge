@@ -1,0 +1,14 @@
+---
+- name: Add harbor helm repository
+  community.kubernetes.helm_repository:
+    name: harbor
+    repo_url: https://helm.goharbor.io
+
+- name: Install harbor
+  community.kubernetes.helm:
+    name: harbor
+    chart_ref: harbor/harbor
+    values:
+      - expose.type: nodePort
+      - expose.tls.enabled: "false"
+      - harborAdminPassword: "{{ vault_harbor_admin pw }}"

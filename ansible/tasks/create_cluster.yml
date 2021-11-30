@@ -9,5 +9,5 @@
         size: s-1vcpu-2gb
         count: 3
     return_kubeconfig: no
-    wait_timeout: 600
+    wait_timeout: 900
   register: my_cluster
