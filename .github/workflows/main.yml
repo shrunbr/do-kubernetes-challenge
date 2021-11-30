@@ -1,0 +1,31 @@
+name: On Master Push
+on:
+  push:
+    branches:
+      - master
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      - name: Setup Python 3.8.12
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8.12
+      - name: Upgrade pip and install requirements
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Install ansible collections
+        run: | 
+          ansible-galaxy collection install community.digitalocean
+      - name: Run Playbook
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          playbook: ansible/playbooks/engage.yml
+          directory: ./
+          vault_password: ${{secrets.ANSIBLE_VAULT_PASSWORD}}
+          options: |
+            --inventory ansible/inventory/inventory.yml
+            --verbose
