@@ -24,7 +24,7 @@ jobs:
       - name: Run Cluster Playbook
         uses: dawidd6/action-ansible-playbook@v2
         with:
-          playbook: ansible/playbooks/create-cluster.yml
+          playbook: ansible/playbooks/create_cluster.yml
           directory: ./
           vault_password: ${{secrets.ANSIBLE_VAULT_PASSWORD}}
           options: |
