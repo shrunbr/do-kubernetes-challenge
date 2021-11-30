@@ -1,0 +1,13 @@
+---
+- name: Digital Ocean Kubernetes Challenge 
+  hosts: localhost
+  gather_facts: false
+  vars_files:
+    ../vars/sensitive.yml
+  vars:
+    create_cluster: yes
+  
+  tasks:
+    - name: Create DigitalOcean Kubernetes Cluster
+      include: ../tasks/create_cluster.yml
+      when: create_cluster

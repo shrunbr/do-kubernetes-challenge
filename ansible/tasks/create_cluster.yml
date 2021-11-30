@@ -1,0 +1,13 @@
+- name: Create a new DigitalOcean Kubernetes cluster in New York 1
+  community.digitalocean.digital_ocean_kubernetes:
+    state: present
+    oauth_token: "{{ vault_do_api_token }}"
+    name: do-kubernetes-challenge
+    region: nyc1
+    node_pools:
+      - name: challenge-workers
+        size: s-1vcpu-2gb
+        count: 3
+    return_kubeconfig: no
+    wait_timeout: 600
+    register: my_cluster
