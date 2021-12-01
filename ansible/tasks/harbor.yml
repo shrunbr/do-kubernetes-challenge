@@ -7,7 +7,7 @@
 - name: Install harbor
   kubernetes.core.helm:
     name: harbor
-    kubeconfig: ../files/kubeconfig.yaml
+    kubeconfig: ../files/do-kubeconfig.yaml
     chart_ref: harbor/harbor
     create_namespace: yes
     release_namespace: harbor
@@ -15,9 +15,9 @@
       expose.type: nodePort
       expose.tls.enabled: "false"
       harborAdminPassword: "{{ vault_harbor_admin_pw }}"
-
-- name: Apply PVs
-  kubernetes.core.k8s:
-    state: present
-    src: ../files/pvs.yml
-    kubeconfig: ../files/kubeconfig.yaml
+      persistence.persistentVolumeClaim.registry.storageClass: do-block-storage
+      persistence.persistentVolumeClaim.chartmuseum.storageClass: do-block-storage
+      persistence.persistentVolumeClaim.jobservice.storageClass: do-block-storage
+      persistence.persistentVolumeClaim.registry.accessMode: ReadWriteMany
+      persistence.persistentVolumeClaim.chartmuseum.accessMode: ReadWriteMany
+      persistence.persistentVolumeClaim.jobservice.accessMode: ReadWriteMany
