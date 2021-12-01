@@ -11,9 +11,5 @@
     chart_ref: harbor/harbor
     create_namespace: yes
     release_namespace: harbor
-    values:
-      expose.type: nodePort
-      expose.tls.enabled: "false"
-      persistence.persistentVolumeClaim.registry.storageClass: do-block-storage
-      persistence.persistentVolumeClaim.chartmuseum.storageClass: do-block-storage
-      persistence.persistentVolumeClaim.jobservice.storageClass: do-block-storage
+    values_files:
+      - ../files/values.yaml
