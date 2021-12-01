@@ -1,5 +1,5 @@
 plugin: community.kubernetes.k8s
 connections:
-  - host: https://e7ee45c5-23cd-40e2-a64e-95fb2e487749.k8s.ondigitalocean.com
+  - host: https://c18ede94-36a0-43c8-8904-481b4f00cc2f.k8s.ondigitalocean.com
     api_key: "{{ vault_kubectl_token }}"
     validate_certs: false

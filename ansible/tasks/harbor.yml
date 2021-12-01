@@ -1,14 +1,23 @@
 ---
 - name: Add harbor helm repository
-  community.kubernetes.helm_repository:
+  kubernetes.core.helm_repository:
     name: harbor
     repo_url: https://helm.goharbor.io
 
 - name: Install harbor
-  community.kubernetes.helm:
+  kubernetes.core.helm:
     name: harbor
+    kubeconfig: ../files/kubeconfig.yaml
     chart_ref: harbor/harbor
+    create_namespace: yes
+    release_namespace: harbor
     values:
-      - expose.type: nodePort
-      - expose.tls.enabled: "false"
-      - harborAdminPassword: "{{ vault_harbor_admin pw }}"
+      expose.type: nodePort
+      expose.tls.enabled: "false"
+      harborAdminPassword: "{{ vault_harbor_admin_pw }}"
+
+- name: Apply PVs
+  kubernetes.core.k8s:
+    state: present
+    src: ../files/pvs.yml
+    kubeconfig: ../files/kubeconfig.yaml

@@ -10,4 +10,4 @@
         count: 3
     return_kubeconfig: no
     wait_timeout: 900
-  register: my_cluster
+  register: my_clusters

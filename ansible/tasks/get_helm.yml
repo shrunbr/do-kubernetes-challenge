@@ -6,4 +6,4 @@
     mode: '0700'
 
 - name: Run get_helm.sh
-  shell: get_helm.sh
+  shell: ./get_helm.sh
