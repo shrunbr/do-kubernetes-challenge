@@ -24,7 +24,7 @@ jobs:
       - name: Run Cluster Playbook
         uses: dawidd6/action-ansible-playbook@v2
         with:
-          playbook: ansible/playbooks/create_cluster.yml
+          playbook: ansible/playbooks/<CREATECLUSTER>
           directory: ./
           vault_password: ${{secrets.ANSIBLE_VAULT_PASSWORD}}
           options: |
@@ -33,7 +33,7 @@ jobs:
       - name: Run K8S Management Playbook
         uses: dawidd6/action-ansible-playbook@v2
         with:
-          playbook: ansible/playbooks/k8s_management.yml
+          playbook: ansible/playbooks/<K8SMANAGEMENT>
           directory: ./
           vault_password: ${{secrets.ANSIBLE_VAULT_PASSWORD}}
           options: |
